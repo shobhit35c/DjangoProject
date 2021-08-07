@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+    {% block title %} Shobhit {% endblock %}
+
+
+
+    {% block content %}
+
+
+
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
+
+{% endif %}
+<br>
+
+        {% if all_items %}
+
+        <table class="table table-bordered">
+
+
+            {% for things in all_items %}
+
+                {% if things.completed %}
+
+                    <tr class="table-success">
+
+                        <td class="striker"> {{things.item}}</td>
+                        <td> <a href="{% url 'un_off' things.id%} "> Uncross </a> </td>
+                        <td><center><div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div></center></td>
+                        <td><center><a href="{% url 'delete' things.id%}">
+                            Delete </a></center></td>
+
+
+
+                    </tr>
+
+
+                {% else %}
+                    <tr >
+
+                        <td>{{things.item}}</td>
+                        <td><center><a href="{% url 'cross_off' things.id%} "> Cross off</a></center></td>
+                        <td> <div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+</div> </td>
+                        <td><center> <a href="{% url 'delete' things.id%}">
+                            Delete </a></center></td>
+
+                    </tr>
+
+
+                {% endif %}
+            {% endfor %}
+
+        </table>
+        {% endif %}
+
+
+    {% endblock %}
